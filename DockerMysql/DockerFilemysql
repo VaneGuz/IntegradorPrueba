@@ -1,0 +1,20 @@
+FROM ubuntu:14.04
+MAINTAINER Diana Ciro "kathe9463@gmail.com"
+
+
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y mysql-server
+
+#RUN  service mysql start
+
+RUN export MYSQL_DATABASE "recetario"
+RUN export MYSQL_ROOT_PASSWORD "root"
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD database.sql /home/database.sql
+ADD script.sh /usr/local/bin/script.sh
+RUN chmod +x /usr/local/bin/script.sh
+RUN apt-get install -y nano
+
+
+CMD ["/usr/local/bin/script.sh"]
+EXPOSE 3306

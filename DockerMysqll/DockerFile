@@ -1,0 +1,20 @@
+FROM ubuntu:14.04 
+MAINTAINER Diana Ciro "kathe9463@gmail.com"
+
+
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y mysql-server
+
+
+ADD my.cnf /etc/mysql/conf.d/my.cnf 
+ADD script.sh /usr/local/bin/script.sh
+RUN chmod +x /usr/local/bin/script.sh
+
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN apt-get install -y nano
+EXPOSE 3306
+
+
+CMD ["/usr/local/bin/script.sh"]
+
